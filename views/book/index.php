@@ -21,11 +21,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Book', ['create'], ['class' => 'btn btn-success']) ?>
+		<?php if (!isset($author)): ?>
+        	<?= Html::a('Create Book', ['create'], ['class' => 'btn btn-success']) ?>
+		<?php endif ?>
     </p>
 
 
-    <?php if (isset($author)): ?>
+    <?php if (!isset($author)): ?>
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
             'columns' => [
@@ -35,6 +37,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'b_author_name',
                 'b_year',
                 'b_rating',
+
+                ['class' => 'yii\grid\ActionColumn'],
             ],
         ]); ?>
     <?php else: ?>
@@ -47,8 +51,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'b_author_name',
                 'b_year',
                 'b_rating',
-
-                ['class' => 'yii\grid\ActionColumn'],
             ],
         ]); ?>
     <?php endif ?>
